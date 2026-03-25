@@ -1,0 +1,418 @@
+import { useState, useEffect } from 'react'
+
+// ── Types ──────────────────────────────────────────────────────────────────
+
+interface Poem {
+  id: number
+  num: string
+  title: string
+  date: string
+  excerpt: string
+  lines: string[]
+}
+
+type LikesMap = Record<number, number>
+
+// ── Colors ─────────────────────────────────────────────────────────────────
+
+const COLORS = {
+  ink:    '#1a1410',
+  paper:  '#f5f0e8',
+  aged:   '#e8dfc8',
+  candle: '#c8a45a',
+  dim:    '#7a6e5f',
+} as const
+
+// ── Poem data ──────────────────────────────────────────────────────────────
+
+const poems: Poem[] = [
+  {
+    id: 6,
+    num: '006',
+    title: 'The Borrow',
+    date: 'Sept 9, 2025',
+    excerpt: 'Ek udhar, mere seene ka bhaar.....',
+    lines: [
+      'Ek udhar, mere seene ka bhaar,',
+      'aaj hui hai ginti, do duni chaar,',
+      'sacchhe bol se khai maine maar,',
+      'ginti ginte hui main nizaar,',
+      'kyunki, woh ek udharr hai mere seene ka bhaar.','',
+      'Yahan bheed hai jami,', 
+      'jab mere aankhon mein aai hai nami,',
+      'sabne banaye apne-apne vichar,',
+      'jo thope mere upar, kiya mujhe zaar-zaar,',
+      'un vichaaron se dabkar, isharon se behkar,',
+      'kar din maine, apni jawani bekaar,',
+      'kyunki, woh ek udhar raha jo mere seene ka bhaar.','',
+      'Khai jo maine asliyat ki maar,',
+      'usi pal maan li maine apni haar,',
+      'bhale hi beete hon saal hazaar,',
+      'yaad dilaya sabne meri hi haqiqat mujhe baar-baar,',
+      'tabhi toh-', 
+      'woh ek udhar, aaj tak hai mere seene ka bhaar....',
+    ],
+  },
+  {
+    id: 5,
+    num: '005',
+    title: 'Teacher"s Day',
+    date: 'Sep 5, 2025',
+    excerpt: 'Ek guru hi hote hai jo har ghadi sath dete hai...',
+    lines: [
+      'Ek guru hi hote hai, jo har ghadi sath dete hai,',
+      'Apne shishyon ke saare ulte-pulte sawalon ke jawaab dete hai, ',
+      'Woh hi hain, Jo galtiyon se sikhate hai',
+      'Aur us seekh ka sahi matlab batate hain,',
+      'Shaant sa swabhaav unka, jheel si aankhein unki,',
+      'Jinki baaton mein wajan ho, shabdon ka arth gehra,',
+      'Unki koi umar nahi, unka gyaan umaron tak kaam dete hai,',
+      'Ek guru hi hote hain, jo har ghadi saath ete hain....'
+    ],
+  },
+  {
+    id: 4,
+    num: '004',
+    title: 'Message from tomorrow',
+    date: 'Sept 4, 2025',
+    excerpt: 'Kal se kal ki baat aai hai, phir se nayi shuruaat aai hai....',
+    lines: [
+      'Kal se kal ki baat aai hai', 'phir se nayi shuruaat aai hai,', 
+      'tumse milne ki, woh rat aai hai,','',
+      'Milungi main tumse, ruth kar milungi ,', 'Mana lena tum, maan jaungi main,',
+      'Kyunki, mohabbat mein bhigne waali barsaat aai hai,','',
+      'Saath rehna mere, hath main na chodungi',
+      'Baat karna tum, chup kar baithungi main,',
+      'Kyunki, yeh khamosh shaam barso baad aai hai,','',
+      'Duaayein mangi hai, maine chahat ki hai tumse,', 'Main apni jaan waar dungi,',
+      'Haalat ke maare ho tum,', 'jazbaat se haari hoon main,',
+      'Kyunki, tumhe chahne ki kasam maine baar-baar khai hai, ', '',
+      'Aaj uparwale ne bakshi hai yeh rehmat,', 'Tumse dobara milne ki,',
+      'Jo mere janaze ki baarat aai hai,','',
+      'Tabhi toh, kal se kal ki baat aai hai.....',
+
+    ],
+  },
+  {
+    id: 3,
+    num: '003',
+    title: 'The last minute gift',
+    date: 'Sept 2, 2025',
+    excerpt: 'Tumne diya mujhe jo tohfa, woh hai tumhari wafa.....',
+    lines: [
+      'Tumne diya mujhe jo tohfa, ','woh hai tumhari wafa,','',
+      'ankhon mein bhale ho andhera,','unjaalon mein dikha tumhara chehra,','',
+      'hawaaon mein jo geet tha,','baharon mein mera meet tha,','',
+      'sard thandi raat mein,','woh mere sath mein,','',
+      'raag uski baat mein,',
+      'na jane kaise, mera hath uske hath mein,','',
+      'Vishwas mujhko ho gaya,','prem man ko bhigo gaya,','',
+      'akhiri jo waqt tha,','mahaul bilkul sakht tha,','',
+      'baat tumne jo kahi,','maana maine sab kuch sahi,','',
+      'raat woh nikal gayi,','jane kyun main badal gayi,','',
+      'main nahi milungi tumse ab,yeh mujhe hai malum, ',
+      'chahe, ab tumhare bagair main akele jiyun,','',
+      'shikwe bahut honge tumhe', 'aakhir,kyun beet gaye woh lamhe,','',
+      'jo tha ab woh na raha', 'sochti hoon, na jane tumne mujhe kyun chaha,','',
+      'kyunki, kiya maine tumko apni zindagi se dafa,',' tumhare prem ke badle maine diya tumhe jafa,','',
+      'Is sab se bawajood, tumne nahi choda apna wajood,','',
+      'mere salgirah ke mauke par,', '',
+      'Tumne diya mujhe jo tohfa, woh hai tumhari wafa... ',
+    ],
+  },
+  {
+    id: 2,
+    num: '002',
+    title: 'The lost letter',
+    date: 'Sept 1, 2025',
+    excerpt: 'Kho diya woh khat maine....',
+    lines: [
+      'Kho diya woh khat maine, jo kiya woh sab maine,',
+      'Khat mein dard chupaya tha, jisne mujhhe rulaya tha,',
+      'Saans atak rahi meri, aankh chalak rahi meri,',
+      'shabd bikhar gaye khat par, ',
+      'kalam bikhar gaye us waraq(sheet) par,',
+      'cheekh raha tha man mera,',
+      'bheeg raha tha tan mera,',
+      'usne mujhe bigoya hai, jisko maine sanjoya hai,',
+      'khaali panno se hathiyar bane,',
+      'kuch dhaar wale talwaar bane,',
+      '',
+      'Kaant rahe raatein jaise, baant rahe baatein khudse,',
+      'sookh gayi aankhein meri, ruk gayi saansein meri,',
+      'tabah kiya khudko, fanah kiya khudko,',
+      'jyon waqt beet-te the, tyon jazbaat badalte the,',
+      'jo kuch khaakh kiya hai maine,' ,
+      'woh kuch raakh karna hai maine ,',
+      'magar,',
+      'kho diya woh khat maine, jo kiya woh sab maine.... ',
+    ],
+  },
+  {
+    id: 1,
+    num: '001',
+    title: 'Few Lines - part 1',
+    date: 'Aug 28, 2025',
+    excerpt: 'Ek safar ke ant pe ek naye nafar ki shuruaat honi hai....',
+    lines: [
+      'Ek safar ke ant pe ek naye nafar ki shuruaat honi hai,' ,
+      'Beet gayi woh raat ab phir nayi subah honi hai ,',
+      'Raahi toh saathi sa tha, ab toh raah bhi khoni hai ,',
+      'kaal ke sath mein, ',
+      'samay ke swabhaav se phir aaj ki baat honi hai ,',
+      'Sach hai, ek safar ke ant pe ek naye safar ki shuruaat honi hai...',
+    ],
+  },
+]
+
+// ── useLikes hook ──────────────────────────────────────────────────────────
+
+const LIKES_KEY = 'poetry-site:likes'
+const LIKED_KEY = 'poetry-site:liked'
+
+function loadLikes(): LikesMap {
+  try { return JSON.parse(localStorage.getItem(LIKES_KEY) ?? '{}') } catch { return {} }
+}
+
+function loadLiked(): Set<number> {
+  try { return new Set(JSON.parse(localStorage.getItem(LIKED_KEY) ?? '[]')) } catch { return new Set() }
+}
+
+function useLikes() {
+  const [likes, setLikes] = useState<LikesMap>(loadLikes)
+  const [liked, setLiked] = useState<Set<number>>(loadLiked)
+
+  const toggle = (id: number) => {
+    setLikes(prev => {
+      const next = { ...prev }
+      next[id] = (next[id] ?? 0) + (liked.has(id) ? -1 : 1)
+      localStorage.setItem(LIKES_KEY, JSON.stringify(next))
+      return next
+    })
+    setLiked(prev => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      localStorage.setItem(LIKED_KEY, JSON.stringify([...next]))
+      return next
+    })
+  }
+
+  return { likes, liked, toggle }
+}
+
+// ── HeartIcon ──────────────────────────────────────────────────────────────
+
+function HeartIcon({ filled }: { filled: boolean }) {
+  return (
+    <svg
+      width="13" height="13" viewBox="0 0 24 24"
+      fill={filled ? 'currentColor' : 'none'}
+      stroke="currentColor" strokeWidth="2"
+      strokeLinecap="round" strokeLinejoin="round"
+      style={{ display: 'block', flexShrink: 0 }}
+    >
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+    </svg>
+  )
+}
+
+// ── LikeButton ─────────────────────────────────────────────────────────────
+
+interface LikeButtonProps {
+  poemId: number
+  count: number
+  isLiked: boolean
+  onToggle: (id: number) => void
+}
+
+function LikeButton({ poemId, count, isLiked, onToggle }: LikeButtonProps) {
+  const [popping, setPopping] = useState(false)
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (!isLiked) {
+      setPopping(true)
+      setTimeout(() => setPopping(false), 380)
+    }
+    onToggle(poemId)
+  }
+
+  return (
+    <button
+      className={`like-btn${isLiked ? ' liked' : ''}${popping ? ' pop' : ''}`}
+      onClick={handleClick}
+      title={isLiked ? 'Unlike this poem' : 'Like this poem'}
+    >
+      <HeartIcon filled={isLiked} />
+      <span>{count > 0 ? count : ''}</span>
+    </button>
+  )
+}
+
+// ── PoemLines ──────────────────────────────────────────────────────────────
+
+function PoemLines({ lines }: { lines: string[] }) {
+  return (
+    <>
+      {lines.map((line, i) =>
+        line ? <p key={i}>{line}</p> : <br key={i} />
+      )}
+    </>
+  )
+}
+
+// ── PoemModal ──────────────────────────────────────────────────────────────
+
+interface PoemModalProps {
+  poem: Poem
+  likeCount: number
+  isLiked: boolean
+  onToggleLike: (id: number) => void
+  onClose: () => void
+}
+
+function PoemModal({ poem, likeCount, isLiked, onToggleLike, onClose }: PoemModalProps) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [onClose])
+
+  return (
+    <div
+      className="modal-backdrop"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <div className="modal-box">
+        <button className="modal-close" onClick={onClose}>✕</button>
+        <span style={{
+          fontFamily: "'Inconsolata', monospace", fontSize: '0.62rem',
+          letterSpacing: '0.2em', textTransform: 'uppercase',
+          color: COLORS.candle, opacity: 0.7, display: 'block', marginBottom: '1rem',
+        }}>
+          {poem.num} · {poem.date}
+        </span>
+        <div style={{
+          fontFamily: "'IM Fell English', serif", fontSize: '1.8rem',
+          fontStyle: 'italic', color: COLORS.paper, marginBottom: '1.5rem',
+        }}>
+          {poem.title}
+        </div>
+        <div style={{ fontSize: '1rem', lineHeight: 2.1, color: COLORS.aged }}>
+          <PoemLines lines={poem.lines} />
+        </div>
+        <div style={{
+          marginTop: '2rem', display: 'flex',
+          justifyContent: 'space-between', alignItems: 'center',
+        }}>
+          <LikeButton
+            poemId={poem.id}
+            count={likeCount}
+            isLiked={isLiked}
+            onToggle={onToggleLike}
+          />
+          <span style={{
+            fontFamily: "'Inconsolata', monospace", fontSize: '0.68rem',
+            letterSpacing: '0.15em', color: COLORS.dim,
+          }}>
+            — @unpraisedwrites
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ── Archive (default export) ───────────────────────────────────────────────
+
+export default function Archive() {
+  const [selected, setSelected] = useState<Poem | null>(null)
+  const { likes, liked, toggle } = useLikes()
+
+  return (
+    <section style={{ minHeight: '100vh', padding: '8rem 2rem 5rem', maxWidth: 900, margin: '0 auto' }}>
+      <div className="fade-up" style={{ textAlign: 'center', marginBottom: '4rem' }}>
+        <h2 style={{
+          fontFamily: "'IM Fell English', serif", fontSize: '2.5rem',
+          fontStyle: 'italic', color: COLORS.paper, marginBottom: '0.5rem',
+        }}>
+          The Archive
+        </h2>
+        <p style={{
+          fontFamily: "'Inconsolata', monospace", fontSize: '0.7rem',
+          letterSpacing: '0.2em', textTransform: 'uppercase', color: COLORS.dim,
+        }}>
+          All poems · Sorted by shadow
+        </p>
+      </div>
+
+      <div className='archive-grid' style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)', //fixed 2 columns
+        gap: '1.5rem',
+      }}>
+        {poems.map((poem, idx) => (
+          
+          <div
+            key={poem.id}
+            className="poem-card fade-up"
+            onClick={() => setSelected(poem)}
+            style={{ animationDelay: `${idx * 0.08}s` }}
+          >
+            <div className="card-bar" style={{
+              position: 'absolute', bottom: 0, left: 0, right: 0,
+              height: 2, background: COLORS.candle,
+              transform: 'scaleX(0)', transformOrigin: 'left',
+              transition: 'transform 0.4s ease',
+            }} />
+            <div style={{
+              fontFamily: "'Inconsolata', monospace", fontSize: '0.62rem',
+              color: COLORS.candle, opacity: 0.5,
+              letterSpacing: '0.1em', marginBottom: '0.8rem',
+            }}>
+              {poem.num}
+            </div>
+            <div style={{
+              fontFamily: "'IM Fell English', serif", fontSize: '1.3rem',
+              fontStyle: 'italic', color: COLORS.paper, marginBottom: '0.8rem',
+            }}>
+              {poem.title}
+            </div>
+            <div style={{ fontSize: '0.88rem', lineHeight: 1.9, color: COLORS.dim, fontStyle: 'italic',wordBreak: 'break-word', overflowWrap: 'anywhere',
+            // overflow: 'hidden',          // ← add this
+            // display: '-webkit-box',      // ← add this
+            // WebkitLineClamp: 3,          // ← how many lines to show
+            // WebkitBoxOrient: 'vertical', 
+            }}>
+              {poem.excerpt}
+            </div>
+            <div style={{
+              marginTop: '1.2rem',
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              fontFamily: "'Inconsolata', monospace", fontSize: '0.62rem',
+              letterSpacing: '0.12em', color: 'rgba(122,110,95,0.5)', textTransform: 'uppercase',
+            }}>
+              <span>{poem.date}</span>
+              <LikeButton
+                poemId={poem.id}
+                count={likes[poem.id] ?? 0}
+                isLiked={liked.has(poem.id)}
+                onToggle={toggle}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {selected && (
+        <PoemModal
+          poem={selected}
+          likeCount={likes[selected.id] ?? 0}
+          isLiked={liked.has(selected.id)}
+          onToggleLike={toggle}
+          onClose={() => setSelected(null)}
+        />
+      )}
+    </section>
+  )
+}
