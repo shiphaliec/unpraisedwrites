@@ -29,173 +29,109 @@ const COLORS = {
 
 const poems: Poem[] = [
   {
-    id: 7,
-    num: '007',
-    title: 'The Borrow',
-    date: 'Sept 9, 2025',
-    excerpt: 'Ek udhar, mere seene ka bhaar.....',
+    id: 1,
+    num: '001',
+    title: 'The Room Without Windows',
+    date: 'Oct 2024',
+    excerpt: 'I have built a room inside my chest— no windows, no door that lets light linger…',
     lines: [
-      'Ek udhar, mere seene ka bhaar,',
-      'aaj hui hai ginti, do duni chaar,',
-      'sacchhe bol se khai maine maar,',
-      'ginti ginte hui main nizaar,',
-      'kyunki, woh ek udharr hai mere seene ka bhaar.','',
-      'Yahan bheed hai jami,', 
-      'jab mere aankhon mein aai hai nami,',
-      'sabne banaye apne-apne vichar,',
-      'jo thope mere upar, kiya mujhe zaar-zaar,',
-      'un vichaaron se dabkar, isharon se behkar,',
-      'kar din maine, apni jawani bekaar,',
-      'kyunki, woh ek udhar raha jo mere seene ka bhaar.','',
-      'Khai jo maine asliyat ki maar,',
-      'usi pal maan li maine apni haar,',
-      'bhale hi beete hon saal hazaar,',
-      'yaad dilaya sabne meri hi haqiqat mujhe baar-baar,',
-      'tabhi toh-', 
-      'woh ek udhar, aaj tak hai mere seene ka bhaar....',
-    ],
-  },
-  {
-    id: 6,
-    num: '006',
-    title: 'The Lock Story',
-    date: 'Sept 8, 2025',
-    excerpt: 'Yeh kaisa taala hai, uski yeh kaisi chaabhi.....',
-    lines: [
-      'Yeh kaisa taala hai, uski yeh kaisi chaabhi ,',
-      'Koshishein bahut ki maine par, mujhse khula na kabhi ,', 
-      'Purane daur ki baat hai ,', 'par lagta hai aisa ki, waqt guzra ho abhi ,', 
-      'Yaad dhundhli padh gayi jaise, baat bhuli na ho kabhi ,', 
-      'Woh sunsaan pal ,', 'paas ke baagon ka phool ,', 
-      'raat ki chamak aur, chai ki mehak, band kitaab mein hai dabi ,', 
-      'Sard ka kohra, us mard ka chehra ,', 'mere darwaaze par woh pehra ,',
-      'yun kitabon ka dhera , jise le gaya woh behra ,',
-      'diya usne zakhm mujhe jo gehra ,', 'yun usne muh phera tha jabhi ,',
-      'gira gale se gamcha tabhi ,', 'maine uthaya use , jaise gira ho mere liye hi ,','',
-      'Chupaya use sabki nazaron se ,', 'Dabaya use sabki khabron se,',
-      'band kiya ek taale se ,', 'rakh diya dur is maale(ghar ki chatt) se ,','',
-      'Waqt guzra - daur beetein, bakse pe padhti rahi yaadon ki cheetein (aansoon) ,', '',
-      'Khol raha hai man mera us taale ko,', 'kaanp raha hai tan mera leke us chabhi ko ,',
-      'Jangh lagi hai taale ko, waise hi uski chabhi bhi ,',
-      'Sochti hui main, ki khol ke kuch paaungi nahi ,',
-      'Woh saamne aa bhi jaye, toh bhi uske pass ab jaungi nahi,',
-      'Toh phirr, yeh kaisa taala, aur uski yeh kaisi chaabhi.......',
-
-    ],
-  },
-  {
-    id: 5,
-    num: '005',
-    title: 'Teacher"s Day',
-    date: 'Sep 5, 2025',
-    excerpt: 'Ek guru hi hote hai jo har ghadi sath dete hai...',
-    lines: [
-      'Ek guru hi hote hai, jo har ghadi sath dete hai,',
-      'Apne shishyon ke saare ulte-pulte sawalon ke jawaab dete hai, ',
-      'Woh hi hain, Jo galtiyon se sikhate hai',
-      'Aur us seekh ka sahi matlab batate hain,',
-      'Shaant sa swabhaav unka, jheel si aankhein unki,',
-      'Jinki baaton mein wajan ho, shabdon ka arth gehra,',
-      'Unki koi umar nahi, unka gyaan umaron tak kaam dete hai,',
-      'Ek guru hi hote hain, jo har ghadi saath ete hain....'
-    ],
-  },
-  {
-    id: 4,
-    num: '004',
-    title: 'Message from tomorrow',
-    date: 'Sept 4, 2025',
-    excerpt: 'Kal se kal ki baat aai hai, phir se nayi shuruaat aai hai....',
-    lines: [
-      'Kal se kal ki baat aai hai', 'phir se nayi shuruaat aai hai,', 
-      'tumse milne ki, woh rat aai hai,','',
-      'Milungi main tumse, ruth kar milungi ,', 'Mana lena tum, maan jaungi main,',
-      'Kyunki, mohabbat mein bhigne waali barsaat aai hai,','',
-      'Saath rehna mere, hath main na chodungi',
-      'Baat karna tum, chup kar baithungi main,',
-      'Kyunki, yeh khamosh shaam barso baad aai hai,','',
-      'Duaayein mangi hai, maine chahat ki hai tumse,', 'Main apni jaan waar dungi,',
-      'Haalat ke maare ho tum,', 'jazbaat se haari hoon main,',
-      'Kyunki, tumhe chahne ki kasam maine baar-baar khai hai, ', '',
-      'Aaj uparwale ne bakshi hai yeh rehmat,', 'Tumse dobara milne ki,',
-      'Jo mere janaze ki baarat aai hai,','',
-      'Tabhi toh, kal se kal ki baat aai hai.....',
-
-    ],
-  },
-  {
-    id: 3,
-    num: '003',
-    title: 'The last minute gift',
-    date: 'Sept 2, 2025',
-    excerpt: 'Tumne diya mujhe jo tohfa, woh hai tumhari wafa.....',
-    lines: [
-      'Tumne diya mujhe jo tohfa, ','woh hai tumhari wafa,','',
-      'ankhon mein bhale ho andhera,','unjaalon mein dikha tumhara chehra,','',
-      'hawaaon mein jo geet tha,','baharon mein mera meet tha,','',
-      'sard thandi raat mein,','woh mere sath mein,','',
-      'raag uski baat mein,',
-      'na jane kaise, mera hath uske hath mein,','',
-      'Vishwas mujhko ho gaya,','prem man ko bhigo gaya,','',
-      'akhiri jo waqt tha,','mahaul bilkul sakht tha,','',
-      'baat tumne jo kahi,','maana maine sab kuch sahi,','',
-      'raat woh nikal gayi,','jane kyun main badal gayi,','',
-      'main nahi milungi tumse ab,yeh mujhe hai malum, ',
-      'chahe, ab tumhare bagair main akele jiyun,','',
-      'shikwe bahut honge tumhe', 'aakhir,kyun beet gaye woh lamhe,','',
-      'jo tha ab woh na raha', 'sochti hoon, na jane tumne mujhe kyun chaha,','',
-      'kyunki, kiya maine tumko apni zindagi se dafa,',' tumhare prem ke badle maine diya tumhe jafa,','',
-      'Is sab se bawajood, tumne nahi choda apna wajood,','',
-      'mere salgirah ke mauke par,', '',
-      'Tumne diya mujhe jo tohfa, woh hai tumhari wafa... ',
+      'I have built a room inside my chest—',
+      'no windows, no door that lets light linger,',
+      'only the sound of my own breathing',
+      'folding into the walls like a prayer',
+      'no one asked for.',
+      '',
+      'The dark here is not absence.',
+      'It is a presence that stays.',
     ],
   },
   {
     id: 2,
     num: '002',
-    title: 'The lost letter',
-    date: 'Sept 1, 2025',
-    excerpt: 'Kho diya woh khat maine....',
+    title: 'Cartography of Loss',
+    date: 'Sep 2024',
+    excerpt: 'You mapped yourself onto the inside of my ribs and I have been walking crooked since…',
     lines: [
-      'Kho diya woh khat maine, jo kiya woh sab maine,',
-      'Khat mein dard chupaya tha, jisne mujhhe rulaya tha,',
-      'Saans atak rahi meri, aankh chalak rahi meri,',
-      'shabd bikhar gaye khat par, ',
-      'kalam bikhar gaye us waraq(sheet) par,',
-      'cheekh raha tha man mera,',
-      'bheeg raha tha tan mera,',
-      'usne mujhe bigoya hai, jisko maine sanjoya hai,',
-      'khaali panno se hathiyar bane,',
-      'kuch dhaar wale talwaar bane,',
+      'You mapped yourself onto the inside of my ribs',
+      'and I have been walking crooked since,',
+      'tilting toward where you used to stand,',
+      'finding nothing but the shape of air',
+      'that learned your outline.',
       '',
-      'Kaant rahe raatein jaise, baant rahe baatein khudse,',
-      'sookh gayi aankhein meri, ruk gayi saansein meri,',
-      'tabah kiya khudko, fanah kiya khudko,',
-      'jyon waqt beet-te the, tyon jazbaat badalte the,',
-      'jo kuch khaakh kiya hai maine,' ,
-      'woh kuch raakh karna hai maine ,',
-      'magar,',
-      'kho diya woh khat maine, jo kiya woh sab maine.... ',
+      'I carry the country of you',
+      'without a compass.',
     ],
   },
   {
-    id: 1,
-    num: '001',
-    title: 'Few Lines - part 1',
-    date: 'Aug 28, 2025',
-    excerpt: 'Ek safar ke ant pe ek naye nafar ki shuruaat honi hai....',
+    id: 3,
+    num: '003',
+    title: 'On Being Afraid of the Light',
+    date: 'Aug 2024',
+    excerpt: 'It is not the dark that frightens me. It is morning—its indifferent arrival…',
     lines: [
-      'Ek safar ke ant pe ek naye nafar ki shuruaat honi hai,' ,
-      'Beet gayi woh raat ab phir nayi subah honi hai ,',
-      'Raahi toh saathi sa tha, ab toh raah bhi khoni hai ,',
-      'kaal ke sath mein, ',
-      'samay ke swabhaav se phir aaj ki baat honi hai ,',
-      'Sach hai, ek safar ke ant pe ek naye safar ki shuruaat honi hai...',
+      'It is not the dark that frightens me.',
+      'It is morning—its indifferent arrival,',
+      'the sun asking questions',
+      'I have not yet learned how to answer.',
+      '',
+      'At least the night',
+      'does not expect me to be whole.',
+    ],
+  },
+  {
+    id: 4,
+    num: '004',
+    title: 'Ode to the Hour Before Sleep',
+    date: 'Jul 2024',
+    excerpt: 'This is when the grief becomes grammatical, when every sentence begins with once…',
+    lines: [
+      'This is when the grief becomes grammatical—',
+      'when every sentence begins with once',
+      'and ends before it should.',
+      '',
+      'I speak to ceilings here.',
+      'I confess to shadows.',
+      'I rehearse the apologies',
+      'I will never deliver.',
+    ],
+  },
+  {
+    id: 5,
+    num: '005',
+    title: 'Inheritance',
+    date: 'Jun 2024',
+    excerpt: 'My mother taught me silence the way others teach religion—daily, on both knees…',
+    lines: [
+      'My mother taught me silence',
+      'the way others teach religion—',
+      'daily, on both knees,',
+      'with reverence and consequence.',
+      '',
+      'I have worshipped at its altar',
+      'longer than I have spoken.',
+      'It is the only tongue',
+      'I know by heart.',
+    ],
+  },
+  {
+    id: 6,
+    num: '006',
+    title: 'Self-Portrait as a Closed Door',
+    date: 'May 2024',
+    excerpt: 'I have practiced the art of staying shut. Of letting the knocking pass through me like weather…',
+    lines: [
+      'I have practiced the art of staying shut.',
+      'Of letting the knocking pass through me like weather.',
+      'Of convincing the wood of my body',
+      'that it does not want to open.',
+      '',
+      'Some rooms are not ready',
+      'to be entered.',
+      'Some of us are still',
+      'learning to be a room at all.',
     ],
   },
 ]
-
-// ── useLikes hook ──────────────────────────────────────────────────────────
 
 // ── localStorage — tracks which poems THIS visitor liked ───────────────────
 
@@ -372,7 +308,7 @@ function PoemModal({ poem, likeCount, isLiked, onToggleLike, onClose }: PoemModa
             fontFamily: "'Inconsolata', monospace", fontSize: '0.68rem',
             letterSpacing: '0.15em', color: COLORS.dim,
           }}>
-            — @unpraisedwrites
+            — Your Name
           </span>
         </div>
       </div>
@@ -403,13 +339,12 @@ export default function Archive() {
         </p>
       </div>
 
-      <div className='archive-grid' style={{
+      <div className="archive-grid" style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)', //fixed 2 columns
+        gridTemplateColumns: 'repeat(2, 1fr)',
         gap: '1.5rem',
       }}>
         {poems.map((poem, idx) => (
-          
           <div
             key={poem.id}
             className="poem-card fade-up"
@@ -435,11 +370,13 @@ export default function Archive() {
             }}>
               {poem.title}
             </div>
-            <div style={{ fontSize: '0.88rem', lineHeight: 1.9, color: COLORS.dim, fontStyle: 'italic',wordBreak: 'break-word', overflowWrap: 'anywhere',
-            // overflow: 'hidden',          // ← add this
-            // display: '-webkit-box',      // ← add this
-            // WebkitLineClamp: 3,          // ← how many lines to show
-            // WebkitBoxOrient: 'vertical', 
+            <div style={{
+              fontSize: '0.88rem', lineHeight: 1.9,
+              color: COLORS.dim, fontStyle: 'italic',
+              overflow: 'hidden',
+              display: '-webkit-box',
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: 'vertical',
             }}>
               {poem.excerpt}
             </div>
