@@ -29,6 +29,23 @@ const COLORS = {
 
 const poems: Poem[] = [
   {
+    id: 8,
+    num: '008',
+    title: 'The pocket of Universe',
+    date: 'Sept 9, 2025',
+    excerpt: 'Meri muthi mein band hai tumhara aasmaan.....',
+    lines: [
+      'Meri muthi mein band hai tumhara aasmaan,', 'Tumhare kadmon ke neeche hai mera jahan ,', '',
+      'Meri saanson mein milti hai tumhe panaah ,','Tumhare khatir main kar doon khudko fanaah ,', '',
+      'Mere waade se milti hai tumhe saza ,', 'Tumhare jeene ki main hoon eklauti wajah ,','',
+      'Mere aankhon ke aansoo kuch kehte kahan ,', 'Tumhare hothon ke moti jo karte bayaan ,','',
+      'Mere kaanon mein shor hai chubhte zara ,', 'Tumhare hathon pe baitha jo tota hara ,','',
+      'Mere shabdon ke bol hain bharte jo jaam,', 'Tumhare bhajnon ke dhol hain karte woh kaam ,', '',
+      'Nikal gayi woh shaam, ', 
+      'Jab , meri muthi mein band tha tumhara aasmaan ,', 'Aur tumhare kadmon ke neeche tha mera jahaan...',
+    ],
+  },
+  {
     id: 7,
     num: '007',
     title: 'The Borrow',
