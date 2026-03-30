@@ -268,7 +268,7 @@ function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
           onClick={() => navigate('hero')}
           style={{ fontFamily: "'IM Fell English', serif", fontSize: '1.05rem', letterSpacing: '0.08em', color: COLORS.candle, textTransform: 'none' }}
         >
-          Verses in the Dark
+          Verses in the Dark - I don't chase emotions, I reconstruct them.
         </button>
 
         {/* Desktop links */}
@@ -333,8 +333,6 @@ function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
     </nav>
   )
 }
-
-
 
 // ── Hero ───────────────────────────────────────────────────────────────────
 
