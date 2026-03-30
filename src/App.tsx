@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import Archive from './Archive'
 import Footer from './Footer';
+import Community from './Community';
 import poetImg from './assets/my-photo.jpeg';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-type Page = 'hero' | 'archive' | 'about'
+type Page = 'hero' | 'archive' | 'about' | 'community'
 
 // ── Colors ─────────────────────────────────────────────────────────────────
 
@@ -182,22 +183,23 @@ const globalStyles = `
     gap: 3.5rem;
     align-items: start;
   }
-
-  @media (max-width: 640px) {
-    .about-grid { grid-template-columns: 1fr;
-                  justify-items:center;
-                  text-align: center; 
-                }
-    .nav-inner  { padding: 1rem 1.5rem !important; }
-    .nav-links  { gap: 1.2rem !important; }
+  .community-grid {
+    grid-template-columns: 1fr 1.4fr;
   }
 
   @media (max-width: 640px) {
-  .about-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr;
+                justify-items:center;
+                text-align: center; 
+              }
   .archive-grid { grid-template-columns: 1fr; }  /* ← add this line */
   .footer-grid { grid-template-columns: 1fr !important; }  /* ← added */
+  .community-grid  { grid-template-columns: 1fr !important; }
   .nav-inner  { padding: 1rem 1.5rem !important; }
   .nav-links  { gap: 1.2rem !important; }
+  .nav-desktop     { display: none !important; }
+  .nav-mobile-btn  { display: flex !important; }
+  .nav-mobile-menu { display: flex !important; }
 }
 `
 
@@ -237,7 +239,18 @@ function PoemLines({ lines }: { lines: string[] }) {
 // ── Navbar ─────────────────────────────────────────────────────────────────
 
 function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
-  const links: [Page, string][] = [['hero', 'Home'], ['archive', 'Archive'], ['about', 'About']]
+  const [menuOpen, setMenuOpen] = useState(false)
+  const links: [Page, string][] = [
+    ['hero',      'Home'],
+    ['archive',   'Archive'],
+    ['about',     'About'],
+    ['community', 'Community'],
+  ]
+
+  const navigate = (p: Page) => {
+    setPage(p)
+    setMenuOpen(false)
+  }
 
   return (
     <nav style={{
@@ -249,28 +262,79 @@ function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         padding: '1.2rem 4rem', maxWidth: 1100, margin: '0 auto',
       }}>
+        {/* Brand */}
         <button
           className="nav-btn active"
-          onClick={() => setPage('hero')}
+          onClick={() => navigate('hero')}
           style={{ fontFamily: "'IM Fell English', serif", fontSize: '1.05rem', letterSpacing: '0.08em', color: COLORS.candle, textTransform: 'none' }}
         >
-          Verses in the Dark - I don't chase emotions—I reconstruct them.
+          Verses in the Dark
         </button>
-        <div className="nav-links" style={{ display: 'flex', gap: '2.5rem' }}>
+
+        {/* Desktop links */}
+        <div className="nav-desktop nav-links" style={{ display: 'flex', gap: '2.5rem' }}>
           {links.map(([id, label]) => (
             <button
               key={id}
               className={`nav-btn${page === id ? ' active' : ''}`}
-              onClick={() => setPage(id)}
+              onClick={() => navigate(id)}
             >
               {label}
             </button>
           ))}
         </div>
+
+        {/* Mobile hamburger button */}
+        <button
+          className="nav-mobile-btn"
+          onClick={() => setMenuOpen(prev => !prev)}
+          style={{
+            display: 'none',
+            background: 'none', border: '1px solid rgba(200,164,90,0.25)',
+            color: COLORS.candle, cursor: 'pointer',
+            padding: '0.4rem 0.7rem',
+            fontFamily: "'Inconsolata', monospace",
+            fontSize: '0.75rem', letterSpacing: '0.1em',
+            flexDirection: 'column', gap: '4px',
+            alignItems: 'center', justifyContent: 'center',
+          }}
+        >
+          <span style={{ display: 'block', width: 18, height: 1.5, background: COLORS.candle }} />
+          <span style={{ display: 'block', width: 18, height: 1.5, background: COLORS.candle }} />
+          <span style={{ display: 'block', width: 18, height: 1.5, background: COLORS.candle }} />
+        </button>
       </div>
+
+      {/* Mobile dropdown menu */}
+      {menuOpen && (
+        <div
+          className="nav-mobile-menu"
+          style={{
+            display: 'none',
+            flexDirection: 'column',
+            background: 'rgba(26,20,16,0.98)',
+            borderTop: '1px solid rgba(200,164,90,0.1)',
+            padding: '1rem 2rem',
+            gap: '0.2rem',
+          }}
+        >
+          {links.map(([id, label]) => (
+            <button
+              key={id}
+              className={`nav-btn${page === id ? ' active' : ''}`}
+              onClick={() => navigate(id)}
+              style={{ textAlign: 'left', padding: '0.7rem 0', borderBottom: '1px solid rgba(200,164,90,0.06)' }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      )}
     </nav>
   )
 }
+
+
 
 // ── Hero ───────────────────────────────────────────────────────────────────
 
@@ -546,6 +610,7 @@ export default function App() {
         {page === 'hero'    && <Hero    setPage={navigate} />}
         {page === 'archive' && <Archive />}
         {page === 'about'   && <About   />}
+        {page === 'community' && <Community/> }
       </div>
       <Footer/>
     </>
