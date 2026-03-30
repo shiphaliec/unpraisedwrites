@@ -29,10 +29,29 @@ const COLORS = {
 
 const poems: Poem[] = [
   {
+    id: 9,
+    num: '009',
+    title: 'The locked door',
+    date: 'Sept 11, 2025',
+    excerpt: 'Mere man ka woh band darwaza.....',
+    lines: [
+      'Mere man ka woh band darwaaza,','Jahaan zakham gehre hai aur ghaav taaza,','',
+      'Pehre par khada koi , jazbaaton se lada koi','zakham nihare kisine , toh marham bana koi ,','',
+      'Samay ki zarurat aur, waqt ki nazakat samajh na paaya koi ,','haari hui baazi , bana har koi kaazi ,',
+      'jab chin gayi chaabhi , toh jeet na paaya koi ,','',
+      'Taale pe jangh , aur khud se khud ki jung ,','Samay ne kiya jo tang, zindagi se udd gaye saare rang ,',
+      'Jeevan hua bedhang, magar maine koshishon se banai ek surang ,','',
+      'Surang mein mile purane gam ,', 'aaj bhi hain woh mere hum-dum , ','',
+      'Toh diya mujhko , main rok na paaya khudko ,', 'Nikal gayi jb cheekh , maangi maine apne jaan ki bheekh ,',
+      'Rukhsat hua mera har dard , phir chala gaya woh humdard ,', 'Wahaan se, jahaan tha -',
+      'Mere man ka woh band darwaaza ,', 'Jahaan zakham gehre the aur ghaav taaza....',
+    ],
+  },
+  {
     id: 8,
     num: '008',
     title: 'The pocket of Universe',
-    date: 'Sept 9, 2025',
+    date: 'Sept 10, 2025',
     excerpt: 'Meri muthi mein band hai tumhara aasmaan.....',
     lines: [
       'Meri muthi mein band hai tumhara aasmaan,', 'Tumhare kadmon ke neeche hai mera jahan ,', '',
