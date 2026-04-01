@@ -2,12 +2,12 @@ import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCkQu7NImrA1UFA4kSWtOEy0w7AvuvNZ78",
-  authDomain: "my-poetry-web.firebaseapp.com",
-  projectId: "my-poetry-web",
-  storageBucket: "my-poetry-web.firebasestorage.app",
-  messagingSenderId: "1055987825600",
-  appId: "1:1055987825600:web:0987637845bfb000e7a625",
+  apiKey:            import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain:        import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId:         import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket:     import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId:             import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
 const app = initializeApp(firebaseConfig)
