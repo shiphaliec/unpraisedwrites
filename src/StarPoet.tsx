@@ -159,7 +159,17 @@ function useStarPoet(poems: CommunityPoem[], currentUserName: string) {
 
 // ── Badge configs ──────────────────────────────────────────────────────────
 
-const BADGES = {
+type BadgeConfig = {
+  icon: string
+  label: string
+  sub: string
+  color: string
+  dim: string
+  border: string
+  glow: string
+}
+
+const BADGES: Record<'star' | 'rising' | 'devoted', BadgeConfig> = {
   star: {
     icon: '👑',
     label: 'Star Poet',
@@ -326,7 +336,7 @@ function NomineeCard({
 function BadgeCard({
   badge, poet,
 }: {
-  badge: typeof BADGES.star
+  badge: BadgeConfig
   poet: { name: string; poemCount: number; voteCount: number } | null
 }) {
   const [hovered, setHovered] = useState(false)
