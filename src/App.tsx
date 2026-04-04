@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from 'react'
 import Archive from './Archive'
 import Footer from './Footer';
 import Community from './Community';
+import PersonalDiary from './PersonalDiary';
 import poetImg from './assets/my-photo.jpeg';
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-type Page = 'hero' | 'archive' | 'about' | 'community'
+type Page = 'hero' | 'archive' | 'about' | 'community' | 'personal-diary'
 
 // ── Colors ─────────────────────────────────────────────────────────────────
 
@@ -192,9 +193,10 @@ const globalStyles = `
                 justify-items:center;
                 text-align: center; 
               }
-  .archive-grid { grid-template-columns: 1fr; }  /* ← add this line */
-  .footer-grid { grid-template-columns: 1fr !important; }  /* ← added */
-  .starpoet-grid   { grid-template-columns: 1fr !important; }  ← add this
+  .archive-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr !important; }  
+  .starpoet-grid   { grid-template-columns: 1fr !important; } 
+  .diary-grid      { grid-template-columns: 1fr !important; } 
   .nav-inner  { padding: 1rem 1.5rem !important; }
   .nav-links  { gap: 1.2rem !important; }
   .nav-desktop     { display: none !important; }
@@ -241,84 +243,96 @@ function PoemLines({ lines }: { lines: string[] }) {
 function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const links: [Page, string][] = [
-    ['hero',      'Home'],
-    ['archive',   'Archive'],
-    ['community', 'Community'],
-    ['about',     'About'],
-    
+    ['hero',          'Home'],
+    ['archive',       'Archive'],
+    ['community',     'Community'],
+    ['personal-diary','Personal Diary'],
+    ['about',         'About'],
   ]
 
-  const navigate = (p: Page) => {
-    setPage(p)
-    setMenuOpen(false)
-  }
+  const navigate = (p: Page) => { setPage(p); setMenuOpen(false) }
 
   return (
     <nav style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-      background: 'rgba(26,20,16,0.93)',
-      borderBottom: '1px solid rgba(200,164,90,0.15)',
+      background: 'rgba(26,20,16,0.96)',
+      borderBottom: '1px solid rgba(200,164,90,0.12)',
     }}>
-      <div className="nav-inner" style={{
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        padding: '1.2rem 4rem', maxWidth: 1100, margin: '0 auto',
+      {/* Row 1 — Brand + tagline */}
+      <div style={{
+        textAlign: 'center',
+        padding: '0.7rem 2rem 0.5rem',
+        borderBottom: '1px solid rgba(200,164,90,0.07)',
       }}>
-        {/* Brand */}
         <button
-          className="nav-btn active"
           onClick={() => navigate('hero')}
-          style={{ fontFamily: "'IM Fell English', serif", fontSize: '1.05rem', letterSpacing: '0.08em', color: COLORS.candle, textTransform: 'none' }}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            fontFamily: "'IM Fell English', serif",
+            fontSize: '0.95rem', color: COLORS.candle,
+            letterSpacing: '0.04em',
+          }}
         >
-          Verses in the Dark - I don't chase emotions, I reconstruct them.
+          Verses in the Dark
+          <span style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: '0.82rem', fontStyle: 'italic',
+            color: COLORS.dim, marginLeft: '0.6rem',
+          }}>
+            · I don't chase emotions, I reconstruct them.
+          </span>
         </button>
+      </div>
 
+      {/* Row 2 — Nav links */}
+      <div style={{
+        display: 'flex', justifyContent: 'center',
+        alignItems: 'center', padding: '0.6rem 2rem',
+        position: 'relative',
+      }}>
         {/* Desktop links */}
-        <div className="nav-desktop nav-links" style={{ display: 'flex', gap: '2.5rem' }}>
-          {links.map(([id, label]) => (
-            <button
-              key={id}
-              className={`nav-btn${page === id ? ' active' : ''}`}
-              onClick={() => navigate(id)}
-            >
-              {label}
-            </button>
+        <div className="nav-desktop" style={{ display: 'flex', gap: '0.3rem', alignItems: 'center' }}>
+          {links.map(([id, label], i) => (
+            <>
+              <button
+                key={id}
+                className={`nav-btn${page === id ? ' active' : ''}`}
+                onClick={() => navigate(id)}
+              >
+                {label}
+              </button>
+              {i < links.length - 1 && (
+                <span style={{ color: 'rgba(200,164,90,0.25)', fontSize: '0.7rem' }}>|</span>
+              )}
+            </>
           ))}
         </div>
 
-        {/* Mobile hamburger button */}
+        {/* Hamburger — mobile only */}
         <button
           className="nav-mobile-btn"
           onClick={() => setMenuOpen(prev => !prev)}
           style={{
-            display: 'none',
-            background: 'none', border: '1px solid rgba(200,164,90,0.25)',
-            color: COLORS.candle, cursor: 'pointer',
-            padding: '0.4rem 0.7rem',
-            fontFamily: "'Inconsolata', monospace",
-            fontSize: '0.75rem', letterSpacing: '0.1em',
+            display: 'none', position: 'absolute', right: '1.5rem',
+            background: 'none', border: '1px solid rgba(200,164,90,0.2)',
+            padding: '0.4rem 0.6rem', cursor: 'pointer',
             flexDirection: 'column', gap: '4px',
-            alignItems: 'center', justifyContent: 'center',
           }}
         >
-          <span style={{ display: 'block', width: 18, height: 1.5, background: COLORS.candle }} />
-          <span style={{ display: 'block', width: 18, height: 1.5, background: COLORS.candle }} />
-          <span style={{ display: 'block', width: 18, height: 1.5, background: COLORS.candle }} />
+          {[0,1,2].map(i => (
+            <span key={i} style={{ display: 'block', width: 18, height: 1.5, background: COLORS.candle }} />
+          ))}
         </button>
       </div>
 
-      {/* Mobile dropdown menu */}
+      {/* Mobile dropdown */}
       {menuOpen && (
-        <div
-          className="nav-mobile-menu"
-          style={{
-            display: 'none',
-            flexDirection: 'column',
-            background: 'rgba(26,20,16,0.98)',
-            borderTop: '1px solid rgba(200,164,90,0.1)',
-            padding: '1rem 2rem',
-            gap: '0.2rem',
-          }}
-        >
+        <div className="nav-mobile-menu" style={{
+          display: 'flex', flexDirection: 'column',
+          background: 'rgba(26,20,16,0.98)',
+          borderTop: '1px solid rgba(200,164,90,0.08)',
+          padding: '0.5rem 2rem 1rem',
+        }}>
           {links.map(([id, label]) => (
             <button
               key={id}
@@ -609,6 +623,7 @@ export default function App() {
         {page === 'hero'    && <Hero    setPage={navigate} />}
         {page === 'archive' && <Archive />}
         {page === 'community' && <Community/> }
+        {page === 'personal-diary' && <PersonalDiary/> }
         {page === 'about'   && <About   />}
       </div>  
       {page !== 'community' && <Footer />}
