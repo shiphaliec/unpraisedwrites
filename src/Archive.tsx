@@ -29,6 +29,31 @@ const COLORS = {
 
 const poems: Poem[] = [
   {
+    id: 11,
+    num: '011',
+    title: 'The wave of memories',
+    date: 'Sept 13, 2025',
+    excerpt: 'Man ke samundar mein uski baatein lehron si aati hai....',
+    lines: [
+      'Man ke samundar mein uski baatein lehron se aati hain ,',
+      'jahan jheel si uski aankhein mujhe dubati hain,', 'main kabhi ruth jaaun toh woh mujhe manati hai ,',
+      'woh jab bhi ruthein toh jaldi hi maan jaati hai,', 'meri in saanson mein uski aahein guzra karti hain,',
+      'thand mein uske liye kambal ka kaam meri baahein kara karti hain,',
+      'mere man ke samunar mein uski baatein lehron si aati hain.','',
+      'Uski baaton mein mujhe ek dhun sunai deti hai ,',
+      'meri raaton mein woh jhun-jhun si baja karti hai ,',' Woh shaam mein jaam , meri subah ka woh aaram ,',
+      'woh dhoop mein chaav, mere sach ka woh gyaan ,','Woh shanti mein sukoon , mere bhatke hue raah ka woh nishaan ,',
+      'meri manzil ka woh raasta , mere jeene ka woh waabasta (wajah) ,' , '',
+      'woh maat ke waqt ka saath , us saath se mili jo jeet ,',
+      'mere jeet ka woh meet , woh meet ke baad ki reet ,',
+      'main jaagun toh use dekhun , main sonuun toh use sochun ,',
+      'woh rahe toh main rahun , woh kahe toh main bhi kahun ,',
+      'mera sab kuch woh, tabhi toh - ', '                     meri duniya woh ban jaati hai ,',
+      'sirf mere tan pe hi nhi balki mere man ke samundar mein bhi uski baatein lehron si aati hain...',
+
+    ],
+  },
+  {
     id: 10,
     num: '010',
     title: 'The secret of spines',
